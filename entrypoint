@@ -1,0 +1,35 @@
+#!/bin/bash -e
+export PASS=${PASS:-RANDOM}
+export USER=${USER:-timemachine}
+export USERID=${USERID:-2000}
+export GROUPID=${GROUPID:-2000}
+
+createUser()
+{
+    groupadd -g ${GROUPID} timemachine_users
+    if [ $PASS == RANDOM ] ; then
+        PASS=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1)
+    fi
+    if useradd -u ${USERID} -g timemachine_users ${USER} ; then
+        echo Creating user ${USER} with a samba password of ${PASS}
+        printf "$PASS\n$PASS\n" | smbpasswd -s -a ${USER}
+    fi
+}
+
+backupConfig()
+{
+    if [ ! -d ${BACKUPDIR} ] ; then
+        echo ${BACKUPDIR} not found did you forget to add the volume?
+        exit 1
+    else
+	echo "Granting permissions to ${USER}/${USERID} with  timemachine_users/${GROUPID} on ${BACKUPDIR}"
+        chown -R ${USER}:${ID} ${BACKUPDIR}
+    fi
+}
+
+if [[ -z $1 ]] || [[ ${1:0:1} == '-' ]] ; then
+    createUser
+    backupConfig
+    exec /usr/sbin/smbd --no-process-group --log-stdout --foreground "$@"
+    exec "$@"
+fi
