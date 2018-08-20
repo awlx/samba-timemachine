@@ -33,4 +33,6 @@ docker run -d -t  \
 
 The container only runs smbd to find it on the network the best way is avahi (mDNS) there is an example service file included. This can be copied to /etc/avahi/services/timemachine.service or run in a container.
 
-Repo is auto built here: https://hub.docker.com/r/timjdfletcher/samba-timemachine/
+You can find the Repo on Github (https://github.com/awlx/samba-timemachine)
+
+This thing was inspired by https://hub.docker.com/r/timjdfletcher/samba-timemachine/
