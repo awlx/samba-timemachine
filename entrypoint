@@ -6,7 +6,9 @@ export GROUPID=${GROUPID:-2000}
 
 createUser()
 {
-    groupadd -g ${GROUPID} timemachine_users
+    if groupadd -g ${GROUPID} timemachine_users; then
+        echo "Created group timemachine_users with ${GROUPID}"
+    fi
     if [ $PASS == RANDOM ] ; then
         PASS=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1)
     fi
