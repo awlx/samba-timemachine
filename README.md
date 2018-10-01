@@ -1,13 +1,18 @@
 # samba-timemachine-docker
 
-This is a docker container that contains the latest version of SAMBA in Debian SID and configured to provide Apple "Time Capsule" like backups.
+This is a docker container that contains SAMBA and is configured to provide Apple "Time Capsule" like backups.
+
+There are three different builds:
+stable - Debian Stable with latest stable SAMBA
+latest - Debian SID with latest SAMBA
+experimental - Debian Experimental with latest pinned version of SAMBA in Repo
 
 To use the docker container do the following (it uses the mountpoint /backups to store your backups):
 
 ```
 docker pull awlnx/samba-timemachine
 docker run -d -t \
-    -v /backups/timemachine:/backups \
+    -v /backups/timemachine:/backups:z \
     -p 10445:445 \
     --restart unless-stopped awlnx/samba-timemachine
     --name timemachine
