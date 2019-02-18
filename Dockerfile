@@ -7,13 +7,14 @@ RUN apk add --update \
     bash \
     && rm -rf /var/cache/apk/*
 
-ADD samba.conf /etc/samba/smb.conf
+COPY samba.conf /etc/samba/smb.conf
 RUN /usr/bin/testparm -s
 
 EXPOSE 445/tcp
 ENV BACKUPDIR /backups
 
-ADD entrypoint /entrypoint
+COPY entrypoint /entrypoint
+COPY template_quota /tmp/
 RUN chmod 0755 /entrypoint
 
 ENTRYPOINT ["/entrypoint"]

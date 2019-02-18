@@ -14,15 +14,15 @@ docker pull awlnx/samba-timemachine
 docker run -d -t \
     -v /backups/timemachine:/backups:z \
     -p 10445:445 \
-    --restart unless-stopped awlnx/samba-timemachine
+    --restart unless-stopped awlnx/samba-timemachine \
     --name timemachine
 ```
 
 Note that due to the use of port 10445 this container can be run along side a normal SAMBA service.
 
-There is a single user called `timemachine` with a random password generated at startup (you see it with `docker logs timemachine`). By default USERID and GROUPID are set to 2000 which maybe conflicts with your running system. 
+There is a single user called `timemachine` with a random password generated at startup (you see it with `docker logs timemachine`). By default USERID and GROUPID are set to 1311 which maybe conflicts with your running system. The default name of the share is "Data." 
 
-Set the environment variables USER, USERID, GROUPID AND/OR PASS to override.
+Set the environment variables USER, USERID, GROUPID, PASS,  AND/OR SHARENAME to override. A quota for each computer's backup can be set, in MB, with the TMSIZE environment variable.
 
 ```
 docker run -d -t  \
@@ -30,9 +30,11 @@ docker run -d -t  \
     -e PASS=test123 \
     -e USERID=1000 \
     -e GROUPID=1000 \
-    -v /backups:/backups:z
-    -p 10445:445 
-    --name timemachine
+    -e SHARENAME=myshare \
+    -e TMSIZE=1024000 \
+    -v /backups:/backups:z \
+    -p 10445:445 \
+    --name timemachine \
     --restart unless-stopped awlnx/samba-timemachine
 ```
 
