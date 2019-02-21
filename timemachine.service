@@ -9,7 +9,7 @@
 	</service>
 	<service>
 		<type>_smb._tcp</type>
-		<port>445</port>
+		<port>10445</port>
 	</service>
 	<service>
 		<type>_device-info._tcp</type>

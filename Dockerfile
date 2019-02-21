@@ -1,18 +1,20 @@
-FROM debian:sid
+FROM alpine:latest
 
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends --yes install \
-        samba \
-        samba-vfs-modules \
-    && rm -rf /var/lib/apt/lists/*
+RUN apk add --update \
+    samba-common-tools \
+    samba-server \
+    shadow \
+    bash \
+    && rm -rf /var/cache/apk/*
 
-ADD samba.conf /etc/samba/smb.conf
+COPY samba.conf /etc/samba/smb.conf
 RUN /usr/bin/testparm -s
 
 EXPOSE 445/tcp
 ENV BACKUPDIR /backups
 
-ADD entrypoint /entrypoint
+COPY entrypoint /entrypoint
+COPY template_quota /tmp/
 RUN chmod 0755 /entrypoint
 
 ENTRYPOINT ["/entrypoint"]

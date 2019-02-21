@@ -1,8 +1,10 @@
 #!/bin/bash -e
 export PASS=${PASS:-RANDOM}
 export USER=${USER:-timemachine}
-export USERID=${USERID:-2000}
-export GROUPID=${GROUPID:-2000}
+export USERID=${USERID:-1311}
+export GROUPID=${GROUPID:-1311}
+export TMSIZE=${TMSIZE:-512000}
+export SHARENAME=${SHARENAME:-Data}
 
 createUser()
 {
@@ -25,13 +27,21 @@ backupConfig()
         exit 1
     else
 	echo "Granting permissions to ${USER}/${USERID} with  timemachine_users/${GROUPID} on ${BACKUPDIR}"
-        chown -R ${USER}:${ID} ${BACKUPDIR}
+        chown -R ${USER}:${GROUPID} ${BACKUPDIR}
     fi
+}
+
+makeOptions()
+{
+    TMSIZE=$(($TMSIZE * 1000000))
+    sed "s#REPLACE_TM_SIZE#${TMSIZE}#" /tmp/template_quota > ${BACKUPDIR}/.com.apple.TimeMachine.quota.plist
+    sed -i "s#REPLACE_SHARENAME#${SHARENAME}#" /etc/samba/smb.conf
 }
 
 if [[ -z $1 ]] || [[ ${1:0:1} == '-' ]] ; then
     createUser
     backupConfig
+    makeOptions
     exec /usr/sbin/smbd --no-process-group --log-stdout --foreground "$@"
     exec "$@"
 fi
