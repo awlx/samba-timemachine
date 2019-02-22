@@ -3,7 +3,7 @@ export PASS=${PASS:-RANDOM}
 export USER=${USER:-timemachine}
 export USERID=${USERID:-1311}
 export GROUPID=${GROUPID:-1311}
-export TMSIZE=${TMSIZE:-512000}
+export TMSIZE=${TMSIZE:-0}
 export SHARENAME=${SHARENAME:-Data}
 
 createUser()
