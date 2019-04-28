@@ -2,11 +2,6 @@
 
 This is a docker container that contains SAMBA and is configured to provide Apple "Time Capsule" like backups.
 
-There are three different builds:
-stable - Debian Stable with latest stable SAMBA
-latest - Debian SID with latest SAMBA
-experimental - Debian Experimental with latest pinned version of SAMBA in Repo
-
 To use the docker container do the following (it uses the mountpoint /backups to store your backups):
 
 ```
