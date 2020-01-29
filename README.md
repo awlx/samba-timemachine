@@ -35,6 +35,15 @@ docker run -d -t  \
 
 The container only runs smbd to find it on the network the best way is avahi (mDNS) there is an example service file included. This can be copied to /etc/avahi/services/timemachine.service or run in a container.
 
+Make sure to change the name of the share in the timemachine.service file to the same as yourh SHARENAME:
+e.g. change "Data" to "myshare":
+
+```
+	<txt-record>dk0=adVN=Data,adVF=0x82</txt-record>
+```
+
+Further information about the share name and flags can be found here  (https://openwrt.org/docs/guide-user/services/nas/netatalk_configuration#zeroconf_advertising) and here (http://netatalk.sourceforge.net/wiki/index.php/Bonjour_record_adisk_adVF_values)
+
 You can find the Repo on Github (https://github.com/awlx/samba-timemachine)
 
 This thing was inspired by https://hub.docker.com/r/timjdfletcher/samba-timemachine/
