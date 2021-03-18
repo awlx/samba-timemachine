@@ -15,7 +15,7 @@ docker run -d -t \
 
 Note that due to the use of port 10445 this container can be run along side a normal SAMBA service.
 
-There is a single user called `timemachine` with a random password generated at startup (you see it with `docker logs timemachine`). By default USERID and GROUPID are set to 1311 which maybe conflicts with your running system. The default name of the share is "Data." 
+There is a single user called `timemachine` with a random password generated at startup (you see it with `docker logs timemachine`). By default USERID and GROUPID are set to 1311 which maybe conflicts with your running system. The default name of the share is "Data."
 
 Set the environment variables USER, USERID, GROUPID, PASS,  AND/OR SHARENAME to override. A quota for each computer's backup can be set, in MB, with the TMSIZE environment variable.
 
