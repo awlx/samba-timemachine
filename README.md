@@ -42,7 +42,7 @@ e.g. change "Data" to "myshare":
 	<txt-record>dk0=adVN=Data,adVF=0x82</txt-record>
 ```
 
-Further information about the share name and flags can be found here  (https://openwrt.org/docs/guide-user/services/nas/netatalk_configuration#zeroconf_advertising) and here (http://netatalk.sourceforge.net/wiki/index.php/Bonjour_record_adisk_adVF_values)
+Further information about the share name and flags can be found here (https://openwrt.org/docs/guide-user/services/nas/netatalk_configuration#zeroconf_advertising) and here (http://netatalk.sourceforge.net/wiki/index.php/Bonjour_record_adisk_adVF_values)
 
 You can find the Repo on Github (https://github.com/awlx/samba-timemachine)
 
