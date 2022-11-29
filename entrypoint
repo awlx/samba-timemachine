@@ -42,6 +42,6 @@ if [[ -z $1 ]] || [[ ${1:0:1} == '-' ]] ; then
     createUser
     backupConfig
     makeOptions
-    exec /usr/sbin/smbd --no-process-group --log-stdout --foreground "$@"
+    exec /usr/sbin/smbd --no-process-group --foreground "$@"
     exec "$@"
 fi
