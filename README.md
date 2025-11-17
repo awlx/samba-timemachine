@@ -9,8 +9,8 @@ docker pull awlnx/samba-timemachine
 docker run -d -t \
     -v /backups/timemachine:/backups:z \
     -p 10445:445 \
-    --restart unless-stopped awlnx/samba-timemachine \
-    --name timemachine
+    --name timemachine \
+    --restart unless-stopped awlnx/samba-timemachine 
 ```
 
 Note that due to the use of port 10445 this container can be run along side a normal SAMBA service.
